@@ -9,14 +9,14 @@ public class Board
         _cells = new bool[numberOfRows, numberOfColumns];
     }
 
-    public bool SetCellToDead(Position position)
+    public void SetCellToDead(Position position)
     {
-        return _cells[position.Row, position.Column] = false;
+        _cells[position.Row, position.Column] = false;
     }
 
-    public bool SetCellToLive(Position position)
+    public void SetCellToLive(Position position)
     {
-        return _cells[position.Row, position.Column] = true;
+        _cells[position.Row, position.Column] = true;
     }
 
     public bool GetCellStatus(Position position)
