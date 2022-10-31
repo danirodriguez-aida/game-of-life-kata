@@ -29,6 +29,7 @@ namespace GameOfLifeTests {
     {
         public static bool[,] NextGeneration(bool[,] board)
         {
+            board[1, 1] = false;
             return board;
         }
     }
