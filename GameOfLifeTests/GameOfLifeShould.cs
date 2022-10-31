@@ -6,9 +6,10 @@ namespace GameOfLifeTests {
         [Test]
         public void a_dead_cell_with_dead_neighbors_stays_dead()
         {
-            var initalBoard = new bool[3, 3];
+            var initialBoard = new bool[3, 3];
+            var gameOfLife = new GameOfLife(initialBoard);
 
-            var board = GameOfLife.NextGeneration(initalBoard);
+            var board = gameOfLife.NextGeneration();
 
             board[1, 1].Should().BeFalse();
         }
@@ -16,10 +17,11 @@ namespace GameOfLifeTests {
         [Test]
         public void a_living_cell_with_less_than_two_living_neighboring_dies()
         {
-            var initalBoard = new bool[3, 3];
-            initalBoard[1, 1] = true;
+            var initialBoard = new bool[3, 3];
+            initialBoard[1, 1] = true;
+            var gameOfLife = new GameOfLife(initialBoard);
 
-            var board = GameOfLife.NextGeneration(initalBoard);
+            var board = gameOfLife.NextGeneration();
 
             board[1, 1].Should().BeFalse();
         }
@@ -27,12 +29,13 @@ namespace GameOfLifeTests {
         [Test]
         public void a_living_cell_with_two_living_neighboring_cells_stays_alive()
         {
-            var initalBoard = new bool[3, 3];
-            initalBoard[1, 1] = true;
-            initalBoard[0, 1] = true;
-            initalBoard[1, 1] = true;
+            var initialBoard = new bool[3, 3];
+            initialBoard[1, 1] = true;
+            initialBoard[0, 1] = true;
+            initialBoard[1, 1] = true;
+            var gameOfLife = new GameOfLife(initialBoard);
 
-            var board = GameOfLife.NextGeneration(initalBoard);
+            var board = gameOfLife.NextGeneration();
 
             board[1, 1].Should().BeTrue();
         }
@@ -40,11 +43,18 @@ namespace GameOfLifeTests {
 
     public class GameOfLife
     {
-        public static bool[,] NextGeneration(bool[,] board)
+        private readonly bool[,] _board;
+
+        public GameOfLife(bool[,] board)
         {
-            if (!(board[0, 1] && board[1, 1] && board[1, 1])) 
-                board[1, 1] = false;
-            return board;
+            _board = board;
+        }
+        
+        public bool[,] NextGeneration()
+        {
+            if (!(_board[0, 1] && _board[1, 1] && _board[1, 1])) 
+                _board[1, 1] = false;
+            return _board;
         }
     }
 }
