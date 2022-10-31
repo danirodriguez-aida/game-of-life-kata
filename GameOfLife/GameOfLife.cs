@@ -4,16 +4,24 @@ public class Board
 {
     private readonly bool[,] _cells;
 
-    public bool[,] GetCells() => _cells;
+    public Board(int numberOfRows, int numberOfColumns)
+    {
+        _cells = new bool[numberOfRows, numberOfColumns];
+    }
 
     public Board(bool[,] board)
     {
         _cells = board;
     }
 
-    public bool KillCell(int row, int column)
+    public bool SetCellToDead(int row, int column)
     {
         return _cells[row, column] = false;
+    }
+
+    public bool SetCellToLive(int row, int column)
+    {
+        return _cells[row, column] = true;
     }
 
     public bool GetCellStatus(int row, int column)
@@ -33,7 +41,7 @@ public class GameOfLife
         
     public void NextGeneration()
     {
-        if (!(_board.GetCellStatus(0, 1) && _board.GetCellStatus(1,1) && _board.GetCellStatus(2,1))) _board.KillCell(1, 1);
+        if (!(_board.GetCellStatus(0, 1) && _board.GetCellStatus(1,1) && _board.GetCellStatus(2,1))) _board.SetCellToDead(1, 1);
     }
 
     public bool GetCellStatus(int row, int column)
