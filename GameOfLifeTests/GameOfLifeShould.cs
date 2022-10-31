@@ -8,7 +8,7 @@ namespace GameOfLifeTests {
         public void a_dead_cell_with_dead_neighbors_stays_dead()
         {
             var initialBoard = new bool[3, 3];
-            var gameOfLife = new GameOfLife(initialBoard);
+            var gameOfLife = new GameOfLife(new Board(initialBoard));
 
             var board = gameOfLife.NextGeneration();
 
@@ -20,7 +20,7 @@ namespace GameOfLifeTests {
         {
             var initialBoard = new bool[3, 3];
             initialBoard[1, 1] = true;
-            var gameOfLife = new GameOfLife(initialBoard);
+            var gameOfLife = new GameOfLife(new Board(initialBoard));
 
             var board = gameOfLife.NextGeneration();
 
@@ -34,7 +34,7 @@ namespace GameOfLifeTests {
             initialBoard[1, 1] = true;
             initialBoard[0, 1] = true;
             initialBoard[1, 1] = true;
-            var gameOfLife = new GameOfLife(initialBoard);
+            var gameOfLife = new GameOfLife(new Board(initialBoard));
 
             var board = gameOfLife.NextGeneration();
 
