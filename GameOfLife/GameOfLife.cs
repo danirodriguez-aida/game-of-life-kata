@@ -36,7 +36,8 @@ public class GameOfLife
         if (!(_board.GetCellStatus(0, 1) && _board.GetCellStatus(1,1) && _board.GetCellStatus(2,1))) _board.KillCell(1, 1);
     }
 
-
-
-    public Board GetBoard() => _board;
+    public bool GetCellStatus(int row, int column)
+    {
+        return _board.GetCellStatus(row, column);
+    }
 }
