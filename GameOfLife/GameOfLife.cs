@@ -9,11 +9,6 @@ public class Board
         _cells = new bool[numberOfRows, numberOfColumns];
     }
 
-    public Board(bool[,] board)
-    {
-        _cells = board;
-    }
-
     public bool SetCellToDead(int row, int column)
     {
         return _cells[row, column] = false;
