@@ -9,18 +9,18 @@ public class Board
         _cells = new bool[numberOfRows, numberOfColumns];
     }
 
-    public bool SetCellToDead(int row, int column)
+    public bool SetCellToDead(Position position)
     {
-        return _cells[row, column] = false;
+        return _cells[position.Row, position.Column] = false;
     }
 
-    public bool SetCellToLive(int row, int column)
+    public bool SetCellToLive(Position position)
     {
-        return _cells[row, column] = true;
+        return _cells[position.Row, position.Column] = true;
     }
 
-    public bool GetCellStatus(int row, int column)
+    public bool GetCellStatus(Position position)
     {
-        return _cells[row, column];
+        return _cells[position.Row, position.Column];
     }
 }
