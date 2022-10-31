@@ -19,8 +19,8 @@ public class Board
         _cells[position.Row, position.Column] = true;
     }
 
-    public bool GetCellStatus(Position position)
+    public Cell GetCellStatus(Position position)
     {
-        return _cells[position.Row, position.Column];
+        return new Cell(_cells[position.Row, position.Column]);
     }
 }
