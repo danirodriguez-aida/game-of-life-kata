@@ -10,6 +10,7 @@ public class Board
     {
         _cells = board;
     }
+
 }
 
 public class GameOfLife
@@ -23,8 +24,13 @@ public class GameOfLife
         
     public void NextGeneration()
     {
-        if (!(_board.GetCells()[0, 1] && _board.GetCells()[1, 1] && _board.GetCells()[1, 1])) 
+        if (!(GetCell(0, 1) && GetCell(1,1) && GetCell(2,1))) 
             _board.GetCells()[1, 1] = false;
+    }
+
+    private bool GetCell(int row, int column)
+    {
+        return _board.GetCells()[row, column];
     }
 
     public Board GetBoard() => _board;

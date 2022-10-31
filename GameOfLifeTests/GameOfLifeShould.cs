@@ -30,7 +30,7 @@ namespace GameOfLifeTests {
             var initialBoard = new bool[3, 3];
             initialBoard[1, 1] = true;
             initialBoard[0, 1] = true;
-            initialBoard[1, 1] = true;
+            initialBoard[2, 1] = true;
             var gameOfLife = new GameOfLife(new Board(initialBoard));
 
             gameOfLife.NextGeneration();
