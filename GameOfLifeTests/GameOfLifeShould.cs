@@ -18,7 +18,7 @@ namespace GameOfLifeTests {
     {
         public static bool[,] NextGeneration(bool[,] board)
         {
-            throw new NotImplementedException();
+            return board;
         }
     }
 }
