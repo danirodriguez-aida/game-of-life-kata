@@ -16,7 +16,7 @@ public class Board
         return _cells[row, column] = false;
     }
 
-    public bool GetCell(int row, int column)
+    public bool GetCellStatus(int row, int column)
     {
         return _cells[row, column];
     }
@@ -33,7 +33,7 @@ public class GameOfLife
         
     public void NextGeneration()
     {
-        if (!(_board.GetCell(0, 1) && _board.GetCell(1,1) && _board.GetCell(2,1))) _board.KillCell(1, 1);
+        if (!(_board.GetCellStatus(0, 1) && _board.GetCellStatus(1,1) && _board.GetCellStatus(2,1))) _board.KillCell(1, 1);
     }
 
 
