@@ -11,6 +11,15 @@ public class Board
         _cells = board;
     }
 
+    public bool KillCell(int row, int column)
+    {
+        return _cells[row, column] = false;
+    }
+
+    public bool GetCell(int row, int column)
+    {
+        return _cells[row, column];
+    }
 }
 
 public class GameOfLife
@@ -24,14 +33,10 @@ public class GameOfLife
         
     public void NextGeneration()
     {
-        if (!(GetCell(0, 1) && GetCell(1,1) && GetCell(2,1))) 
-            _board.GetCells()[1, 1] = false;
+        if (!(_board.GetCell(0, 1) && _board.GetCell(1,1) && _board.GetCell(2,1))) _board.KillCell(1, 1);
     }
 
-    private bool GetCell(int row, int column)
-    {
-        return _board.GetCells()[row, column];
-    }
+
 
     public Board GetBoard() => _board;
 }
