@@ -10,7 +10,6 @@ public class Board
     {
         _cells = board;
     }
-    
 }
 
 public class GameOfLife
@@ -22,9 +21,11 @@ public class GameOfLife
         _board = board;
     }
         
-    public bool[,] NextGeneration()
+    public void NextGeneration()
     {
-        if (!(_board.GetCells()[0, 1] && _board.GetCells()[1, 1] && _board.GetCells()[1, 1])) _board.GetCells()[1, 1] = false;
-        return _board.GetCells();
+        if (!(_board.GetCells()[0, 1] && _board.GetCells()[1, 1] && _board.GetCells()[1, 1])) 
+            _board.GetCells()[1, 1] = false;
     }
+
+    public Board GetBoard() => _board;
 }
