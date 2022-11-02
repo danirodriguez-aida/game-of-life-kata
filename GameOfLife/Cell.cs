@@ -13,5 +13,8 @@ public class Cell
 
     public void SetStatus(bool value) => status = value;
 
+    public void SetToLive() => status = true; 
+    public void SetToDead() => status = false; 
+
     public Position Position { get; }
 }

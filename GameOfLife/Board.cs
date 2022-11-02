@@ -22,12 +22,12 @@ public class Board
 
     public void SetCellToDead(Position position)
     {
-        GetCellBy(position).SetStatus(false);
+        GetCellBy(position).SetToDead();
     }
 
     public void SetCellToLive(Position position)
     {
-        GetCellBy(position).SetStatus(true);
+        GetCellBy(position).SetToLive();
     }
 
     public bool GetCellStatus(Position position)
