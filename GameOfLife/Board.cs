@@ -2,25 +2,36 @@ namespace GameOfLifeApp;
 
 public class Board
 {
-    private readonly bool[,] _cells;
+    private readonly List<Cell> cells = new();
 
     public Board(int numberOfRows, int numberOfColumns)
     {
-        _cells = new bool[numberOfRows, numberOfColumns];
+        InitializeBoard(numberOfRows, numberOfColumns);
+    }
+
+    private void InitializeBoard(int numberOfRows, int numberOfColumns)
+    {
+        for (var i = 0; i < numberOfRows; i++)
+        {
+            for (var j = 0; j < numberOfColumns; j++)
+            {
+                cells.Add(new Cell(false, Position.In(i, j)));
+            }
+        }
     }
 
     public void SetCellToDead(Position position)
     {
-        _cells[position.Row, position.Column] = false;
+        cells.Single(c => c.Position.Equals(position)).Status = false;
     }
 
     public void SetCellToLive(Position position)
     {
-        _cells[position.Row, position.Column] = true;
+        cells.Single(c => c.Position.Equals(position)).Status = true;
     }
 
     public bool GetCellStatus(Position position)
     {
-        return new Cell(_cells[position.Row, position.Column]).Status;
+        return cells.Single(c => c.Position.Equals(position)).Status;
     }
 }
