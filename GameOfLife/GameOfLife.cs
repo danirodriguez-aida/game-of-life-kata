@@ -2,27 +2,23 @@ namespace GameOfLifeApp;
 
 public class GameOfLife
 {
-    private readonly Board _board;
+    private readonly Board board;
 
     public GameOfLife(Board board)
     {
-        _board = board;
+        this.board = board;
     }
         
     public void NextGeneration()
     {
-        if (IsCellAlive(Position.In(1,1)) && (
-            !IsCellAlive(Position.In(0,1)) && !IsCellAlive(Position.In(2,1))
-            && 
-            !IsCellAlive(Position.In(1,0)) && !IsCellAlive(Position.In(1,2))
-            ))
-        {
-            _board.SetCellToDead(Position.In(1, 1));
-        }
+        var neighbors = board.GetNeighbors(Position.In(1, 1));
+        var aliveNeighbors =  neighbors.Count(n => n.IsAlive());
+        if (aliveNeighbors < 2 )   board.SetCellToDead(Position.In(1, 1));
     }
 
     public bool IsCellAlive(Position position)
     {
-        return _board.IsCellAlive(position);
+        return board.IsCellAlive(position);
     }
+
 }

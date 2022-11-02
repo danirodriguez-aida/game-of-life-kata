@@ -35,6 +35,31 @@ public class Board
         return GetCellBy(position).IsAlive();
     }
 
+    public List<Cell> GetNeighbors(Position position)
+    {
+        var neighbors = new List<Cell>();
+        var positionUpLeft = Position.In(position.Row - 1, position.Column - 1);
+        neighbors.Add(GetCellBy(positionUpLeft));
+        var positionUpCenter = Position.In(position.Row - 1, position.Column);
+        neighbors.Add(GetCellBy(positionUpCenter));
+        var positionUpRight = Position.In(position.Row - 1, position.Column +1);
+        neighbors.Add(GetCellBy(positionUpRight));
+
+        var positionCenterLeft = Position.In(position.Row, position.Column -1);
+        neighbors.Add(GetCellBy(positionCenterLeft));
+        var positionCenterRight = Position.In(position.Row, position.Column +1);
+        neighbors.Add(GetCellBy(positionCenterRight));
+
+        var positionDownLeft = Position.In(position.Row + 1, position.Column - 1);
+        neighbors.Add(GetCellBy(positionDownLeft));
+        var positionDownCenter = Position.In(position.Row + 1, position.Column);
+        neighbors.Add(GetCellBy(positionDownCenter));
+        var positionDownRight = Position.In(position.Row + 1, position.Column + 1 );
+        neighbors.Add(GetCellBy(positionDownRight));
+
+        return neighbors;
+    }
+
     private Cell GetCellBy(Position position)
     {
         return cells.Single(c => c.Position.Equals(position));
