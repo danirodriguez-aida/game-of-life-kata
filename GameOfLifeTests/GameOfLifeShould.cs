@@ -37,15 +37,13 @@ namespace GameOfLifeTests {
         }
 
         private static IEnumerable<Board> GetExpectedBoards() {
-            yield return GetBoardWithAliveCells(Position.In(0, 1), Position.In(1, 1),Position.In(2, 1));
-            yield return GetBoardWithAliveCells(Position.In(1, 0), Position.In(1, 1),Position.In(1, 2));
+            yield return GetBoardWithAliveCells(3, 3, Position.In(0, 1), Position.In(1, 1),Position.In(2, 1));
+            yield return GetBoardWithAliveCells(3, 3, Position.In(1, 0), Position.In(1, 1),Position.In(1, 2));
         }
 
-        private static Board GetBoardWithAliveCells(params Position[] aliveCellPositions)
+        private static Board GetBoardWithAliveCells(int numberOfRows, int numberOfColumns, params Position[] aliveCellPositions)
         {
-            var boardRows = aliveCellPositions.Max(position => position.Row) + 1;
-            var boardColumns =aliveCellPositions.Max(position => position.Column) + 1;
-            var initialBoard = new Board(boardRows, boardColumns);
+            var initialBoard = new Board(numberOfRows, numberOfColumns);
             foreach (var cellPosition in aliveCellPositions)
             {
                 initialBoard.SetCellToLive(cellPosition);
