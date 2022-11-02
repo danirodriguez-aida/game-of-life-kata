@@ -11,7 +11,7 @@ namespace GameOfLifeTests {
 
             gameOfLife.NextGeneration();
 
-            gameOfLife.GetCellStatus(Position.In(1, 1)).Should().BeFalse();
+            gameOfLife.IsCellAlive(Position.In(1, 1)).Should().BeFalse();
         }
 
         [Test]
@@ -22,7 +22,7 @@ namespace GameOfLifeTests {
 
             gameOfLife.NextGeneration();
 
-            gameOfLife.GetCellStatus(Position.In(1, 1)).Should().BeFalse();
+            gameOfLife.IsCellAlive(Position.In(1, 1)).Should().BeFalse();
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace GameOfLifeTests {
 
             gameOfLife.NextGeneration();
 
-            gameOfLife.GetCellStatus(Position.In(1, 1)).Should().BeTrue();
+            gameOfLife.IsCellAlive(Position.In(1, 1)).Should().BeTrue();
         }
     }
 }

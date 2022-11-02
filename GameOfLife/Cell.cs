@@ -9,7 +9,7 @@ public class Cell
         Position = position;
     }
 
-    public bool GetStatus() => status;
+    public bool IsAlive() => status;
 
     public void SetToLive() => status = true; 
     public void SetToDead() => status = false; 

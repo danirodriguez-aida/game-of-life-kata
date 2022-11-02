@@ -30,9 +30,9 @@ public class Board
         GetCellBy(position).SetToLive();
     }
 
-    public bool GetCellStatus(Position position)
+    public bool IsCellAlive(Position position)
     {
-        return GetCellBy(position).GetStatus();
+        return GetCellBy(position).IsAlive();
     }
 
     private Cell GetCellBy(Position position)

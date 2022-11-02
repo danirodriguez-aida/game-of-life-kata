@@ -11,11 +11,11 @@ public class GameOfLife
         
     public void NextGeneration()
     {
-        if (!(GetCellStatus(Position.In(0,1)) && GetCellStatus(Position.In(1,1)) && GetCellStatus(Position.In(2,1)))) _board.SetCellToDead(Position.In(1, 1));
+        if (!(IsCellAlive(Position.In(0,1)) && IsCellAlive(Position.In(1,1)) && IsCellAlive(Position.In(2,1)))) _board.SetCellToDead(Position.In(1, 1));
     }
 
-    public bool GetCellStatus(Position position)
+    public bool IsCellAlive(Position position)
     {
-        return _board.GetCellStatus(position);
+        return _board.IsCellAlive(position);
     }
 }
