@@ -8,7 +8,7 @@ public class Position
         Column = column;
     }
 
-    public static Position GetIn(int row, int column)
+    public static Position In(int row, int column)
     {
         return new Position(row, column);
     }
