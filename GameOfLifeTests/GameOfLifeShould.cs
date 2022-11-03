@@ -22,11 +22,11 @@ namespace GameOfLifeTests {
 
             gameOfLife.IsCellAlive(boards.CheckStatusInPosition).Should().BeFalse();
         }
-        
-       
+
+
         [TestCaseSource(nameof(CasesALivingCellAndTwoLivingNeighbors))]
         public void a_living_cell_with_two_living_neighboring_cells_stays_alive(TestBoards boards) {
-            
+
             var gameOfLife = new GameOfLife(boards.InitialBoard);
 
             gameOfLife.NextGeneration();
@@ -34,43 +34,57 @@ namespace GameOfLifeTests {
             gameOfLife.IsCellAlive(boards.CheckStatusInPosition).Should().BeTrue();
         }
 
-        private static IEnumerable<TestBoards> CasesALivingCellAndTwoLivingNeighbors()
-        {
-            var board1 = GetBoardWithAliveCells(3, 3, Position.In(0, 1), Position.In(1, 1), Position.In(2, 1));
-            var test1 = new TestBoards(board1, Position.In(1, 1));
-            var board2 = GetBoardWithAliveCells(3, 3, Position.In(0, 1), Position.In(1, 1), Position.In(2, 1));
-            var test2 = new TestBoards(board2, Position.In(1, 1));
-            return new[] {test1, test2};
+        [TestCaseSource(nameof(CasesALivingCellAndMoreThanThreeLivingNeighbors))]
+        public void a_living_cell_with_more_than_three_living_neighboring_cells_dies(TestBoards boards) {
+
+            var gameOfLife = new GameOfLife(boards.InitialBoard);
+
+            gameOfLife.NextGeneration();
+
+            gameOfLife.IsCellAlive(boards.CheckStatusInPosition).Should().BeFalse();
         }
 
-        private static IEnumerable<TestBoards> CasesALivingCellAndLowerThanTwoLivingNeighbors()
-        {
+        private static IEnumerable<TestBoards> CasesALivingCellAndLowerThanTwoLivingNeighbors() {
             var board1 = GetBoardWithAliveCells(3, 3, Position.In(1, 1));
             var test1 = new TestBoards(board1, Position.In(1, 1));
             var board2 = GetBoardWithAliveCells(3, 3, Position.In(2, 2));
             var test2 = new TestBoards(board2, Position.In(2, 2));
             var board3 = GetBoardWithAliveCells(3, 3, Position.In(0, 2));
             var test3 = new TestBoards(board3, Position.In(0, 2));
-            return new[] {test1, test2, test3};
+            return new[] { test1, test2, test3 };
         }
 
-        public class TestBoards
-        {
+        private static IEnumerable<TestBoards> CasesALivingCellAndTwoLivingNeighbors() {
+            var board1 = GetBoardWithAliveCells(3, 3, Position.In(0, 1), Position.In(1, 1), Position.In(2, 1));
+            var test1 = new TestBoards(board1, Position.In(1, 1));
+            var board2 = GetBoardWithAliveCells(3, 3, Position.In(0, 1), Position.In(1, 1), Position.In(2, 1));
+            var test2 = new TestBoards(board2, Position.In(1, 1));
+            var board3 = GetBoardWithAliveCells(3, 3, Position.In(2, 1), Position.In(1, 2), Position.In(2, 2));
+            var test3 = new TestBoards(board3, Position.In(2, 2));
+            return new[] { test1, test2, test3 };
+        }
+
+        private static IEnumerable<TestBoards> CasesALivingCellAndMoreThanThreeLivingNeighbors() {
+            var board1 = GetBoardWithAliveCells(3, 3, Position.In(0, 0), Position.In(0, 1), Position.In(0, 2), Position.In(1, 0), Position.In(1, 1));
+            var test1 = new TestBoards(board1, Position.In(0, 1));
+            var board2 = GetBoardWithAliveCells(3, 3, Position.In(0, 0), Position.In(0, 1), Position.In(0, 2), Position.In(1, 0), Position.In(1, 1));
+            var test2 = new TestBoards(board2, Position.In(1, 1));
+            return new[] { test1, test2 };
+        }
+
+        public class TestBoards {
             public Board InitialBoard { get; }
             public Position CheckStatusInPosition { get; }
 
-            public TestBoards(Board initialBoard, Position checkStatusInPosition)
-            {
+            public TestBoards(Board initialBoard, Position checkStatusInPosition) {
                 InitialBoard = initialBoard;
                 CheckStatusInPosition = checkStatusInPosition;
             }
         }
 
-        private static Board GetBoardWithAliveCells(int numberOfRows, int numberOfColumns, params Position[] aliveCellPositions)
-        {
+        private static Board GetBoardWithAliveCells(int numberOfRows, int numberOfColumns, params Position[] aliveCellPositions) {
             var initialBoard = new Board(numberOfRows, numberOfColumns);
-            foreach (var cellPosition in aliveCellPositions)
-            {
+            foreach (var cellPosition in aliveCellPositions) {
                 initialBoard.SetCellToLive(cellPosition);
             }
             return initialBoard;
