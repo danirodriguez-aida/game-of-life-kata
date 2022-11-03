@@ -5,7 +5,6 @@ public class Board
     private readonly int numberOfRows;
     private readonly int numberOfColumns;
     private readonly List<Cell> cells = new();
-    public IEnumerable<Cell> Cells => cells;
 
     public Board(int numberOfRows, int numberOfColumns)
     {
@@ -25,11 +24,25 @@ public class Board
         }
     }
 
-    public Board CreateBoardWithSameSize()
+    public Board GetNextBoard(GameOfLife gameOfLife)
     {
-        return new Board(numberOfRows,numberOfColumns);
+        var auxBoard = CreateBoardWithSameSize();
+        foreach (var cell in cells)
+        {
+            var position = cell.Position;
+            var statusForCell = GetStatusForCell(position);
+            if (statusForCell == CellStatus.Alive)
+            {
+                auxBoard.SetCellToLive(position);
+            }
+            else
+            {
+                auxBoard.SetCellToDead(position);
+            }
+        }
+        return auxBoard;
     }
-
+   
     public void SetCellToDead(Position position)
     {
         GetCellBy(position).SetToDead();
@@ -45,7 +58,7 @@ public class Board
         return GetCellBy(position).IsAlive();
     }
 
-    public List<Cell> GetNeighbors(Position position)
+    private IEnumerable<Cell> GetNeighbors(Position position)
     {
         var neighbors = new List<Cell>();
         var positionUpLeft = Position.In(position.Row - 1, position.Column - 1);
@@ -68,6 +81,11 @@ public class Board
         return neighbors;
     }
 
+    private Board CreateBoardWithSameSize()
+    {
+        return new Board(numberOfRows,numberOfColumns);
+    }
+
     private Cell GetCellBy(Position position)
     {
         return cells.Single(c => c.Position.Equals(position));
@@ -76,5 +94,23 @@ public class Board
     private bool IsPosition(Position position)
     {
         return cells.SingleOrDefault(c => c.Position.Equals(position)) != null;
+    }
+
+    private CellStatus GetStatusForCell(Position position) {
+        var neighbors = GetNeighbors(position);
+        var aliveNeighbors = neighbors.Count(n => n.IsAlive());
+        if (IsCellAlive(position))
+        {
+            return aliveNeighbors switch
+            {
+                2 => CellStatus.Alive,
+                3 => CellStatus.Alive,
+                _ => CellStatus.Dead
+            };
+        }
+        return aliveNeighbors switch {
+            3 => CellStatus.Alive,
+            _ => CellStatus.Dead
+        };
     }
 }
