@@ -25,10 +25,12 @@ public class GameOfLife {
     private CellStatus GetStatusForCell(Position position) {
         var neighbors = board.GetNeighbors(position);
         var aliveNeighbors = neighbors.Count(n => n.IsAlive());
-        if (aliveNeighbors < 2) {
-            return CellStatus.Dead;
-        }
-        return CellStatus.Alive;
+        return aliveNeighbors switch
+        {
+            < 2 => CellStatus.Dead,
+            > 3 => CellStatus.Dead,
+            _ => CellStatus.Alive
+        };
     }
 
     public bool IsCellAlive(Position position) {
