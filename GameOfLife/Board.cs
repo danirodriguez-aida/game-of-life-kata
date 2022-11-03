@@ -2,14 +2,19 @@ namespace GameOfLifeApp;
 
 public class Board
 {
+    private readonly int numberOfRows;
+    private readonly int numberOfColumns;
     private readonly List<Cell> cells = new();
+    public IEnumerable<Cell> Cells => cells;
 
     public Board(int numberOfRows, int numberOfColumns)
     {
-        InitializeBoard(numberOfRows, numberOfColumns);
+        this.numberOfRows = numberOfRows;
+        this.numberOfColumns = numberOfColumns;
+        InitializeBoard();
     }
-
-    private void InitializeBoard(int numberOfRows, int numberOfColumns)
+    
+    private void InitializeBoard()
     {
         for (var i = 0; i < numberOfRows; i++)
         {
@@ -18,6 +23,11 @@ public class Board
                 cells.Add(new Cell(Position.In(i, j)));
             }
         }
+    }
+
+    public Board CreateBoardWithSameSize()
+    {
+        return new Board(numberOfRows,numberOfColumns);
     }
 
     public void SetCellToDead(Position position)
