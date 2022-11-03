@@ -24,7 +24,7 @@ public class Board
         }
     }
 
-    public Board GetNextBoard(GameOfLife gameOfLife)
+    public Board GetNextBoard()
     {
         var auxBoard = CreateBoardWithSameSize();
         foreach (var cell in cells)

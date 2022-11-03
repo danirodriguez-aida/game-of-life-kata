@@ -9,7 +9,7 @@ public class GameOfLife {
 
     public void NextGeneration()
     {
-        board = board.GetNextBoard(this);
+        board = board.GetNextBoard();
     }
 
     public bool IsCellAlive(Position position) {
