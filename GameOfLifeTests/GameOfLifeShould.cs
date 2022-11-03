@@ -54,6 +54,16 @@ namespace GameOfLifeTests {
             gameOfLife.IsCellAlive(boards.CheckStatusInPosition).Should().BeTrue();
         }
 
+        [TestCaseSource(nameof(CasesDeadCellAndTwoLivingNeighbors))]
+        public void a_dead_cell_with_two_living_neighboring_stays_dead(TestBoards boards) {
+
+            var gameOfLife = new GameOfLife(boards.InitialBoard);
+
+            gameOfLife.NextGeneration();
+
+            gameOfLife.IsCellAlive(boards.CheckStatusInPosition).Should().BeFalse();
+        }
+
         private static IEnumerable<TestBoards> CasesALivingCellAndLowerThanTwoLivingNeighbors() {
             var board1 = GetBoardWithAliveCells(3, 3, Position.In(1, 1));
             var test1 = new TestBoards(board1, Position.In(1, 1));
@@ -88,6 +98,16 @@ namespace GameOfLifeTests {
             var board2 = GetBoardWithAliveCells(3, 3, Position.In(0, 0), Position.In(0, 1), Position.In(0, 2));
             var test2 = new TestBoards(board2, Position.In(1, 1));
             return new[] { test1, test2 };
+        }
+
+        private static IEnumerable<TestBoards> CasesDeadCellAndTwoLivingNeighbors() {
+            var board1 = GetBoardWithAliveCells(3, 3, Position.In(0, 1), Position.In(2, 1));
+            var test1 = new TestBoards(board1, Position.In(1, 1));
+            var board2 = GetBoardWithAliveCells(3, 3, Position.In(0, 1), Position.In(2, 1));
+            var test2 = new TestBoards(board2, Position.In(1, 1));
+            var board3 = GetBoardWithAliveCells(3, 3, Position.In(2, 1), Position.In(1, 2));
+            var test3 = new TestBoards(board3, Position.In(2, 2));
+            return new[] { test1, test2, test3 };
         }
 
         public class TestBoards {
