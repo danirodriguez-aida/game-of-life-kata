@@ -7,31 +7,28 @@ public class GameOfLife {
         this.board = board;
     }
 
-    public void NextGeneration()
-    {
+    public void NextGeneration() {
         var auxBoard = board.CreateBoardWithSameSize();
-        foreach (var cell in board.Cells)
-        {
+        foreach (var cell in board.Cells) {
             var position = cell.Position;
             var statusForCell = GetStatusForCell(position);
-            if (statusForCell)
-            {
+            if (statusForCell == CellStatus.Alive) {
                 auxBoard.SetCellToLive(position);
             }
-            else
-            {
+            else {
                 auxBoard.SetCellToDead(position);
             }
         }
         board = auxBoard;
     }
 
-    private bool GetStatusForCell(Position position)
-    {
+    private CellStatus GetStatusForCell(Position position) {
         var neighbors = board.GetNeighbors(position);
         var aliveNeighbors = neighbors.Count(n => n.IsAlive());
-        if (aliveNeighbors < 2) return false;
-        return true;
+        if (aliveNeighbors < 2) {
+            return CellStatus.Dead;
+        }
+        return CellStatus.Alive;
     }
 
     public bool IsCellAlive(Position position) {
