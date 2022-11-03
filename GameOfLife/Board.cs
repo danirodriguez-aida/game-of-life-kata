@@ -62,7 +62,6 @@ public class Board
     {
         var neighbors = new List<Cell>();
         var positionUpLeft = Position.In(position.Row - 1, position.Column - 1);
-
         if (IsPosition(positionUpLeft)) neighbors.Add(GetCellBy(positionUpLeft));
         var positionUpCenter = Position.In(position.Row - 1, position.Column);
         if (IsPosition(positionUpCenter)) neighbors.Add(GetCellBy(positionUpCenter));
