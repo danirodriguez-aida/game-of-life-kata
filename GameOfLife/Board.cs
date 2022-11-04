@@ -58,14 +58,15 @@ public class Board
     private IEnumerable<Cell> GetNeighbors(Position position)
     {
         var neighbors = new List<Cell>();
-        var positionUpLeft = Position.In(position.Row - 1, position.Column - 1);
-        var positionUpCenter = Position.In(position.Row - 1, position.Column);
-        var positionUpRight = Position.In(position.Row - 1, position.Column +1);
-        var positionCenterLeft = Position.In(position.Row, position.Column -1);
-        var positionCenterRight = Position.In(position.Row, position.Column +1);
-        var positionDownLeft = Position.In(position.Row + 1, position.Column - 1);
-        var positionDownCenter = Position.In(position.Row + 1, position.Column);
-        var positionDownRight = Position.In(position.Row + 1, position.Column + 1 );
+        var positionUpLeft = position.GetUpLeftPosition();
+        var positionUpCenter = position.GetUpCenterPosition();
+        var positionUpRight = position.GetUpRightPosition();
+        var positionCenterLeft = position.GetCenterLeftPosition();
+        var positionCenterRight = position.GetCenterRightPosition();
+        var positionDownLeft = position.GetDownLeftPosition();
+        var positionDownCenter = position.GetDownCenterPosition();
+        var positionDownRight = position.GetDownRightPosition();
+        
         if (cells.ExistsCellIn(positionUpLeft)) neighbors.Add(cells.GetCellBy(positionUpLeft));
         if (cells.ExistsCellIn(positionUpCenter)) neighbors.Add(cells.GetCellBy(positionUpCenter));
         if (cells.ExistsCellIn(positionUpRight)) neighbors.Add(cells.GetCellBy(positionUpRight));
