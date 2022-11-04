@@ -55,27 +55,10 @@ public class Board
         }
     }
 
-    private IEnumerable<Cell> GetNeighbors(Position position)
+    private IEnumerable<Cell> GetCellNeighbors(Position position)
     {
-        var neighbors = new List<Cell>();
-        var positionUpLeft = position.GetUpLeftPosition();
-        var positionUpCenter = position.GetUpCenterPosition();
-        var positionUpRight = position.GetUpRightPosition();
-        var positionCenterLeft = position.GetCenterLeftPosition();
-        var positionCenterRight = position.GetCenterRightPosition();
-        var positionDownLeft = position.GetDownLeftPosition();
-        var positionDownCenter = position.GetDownCenterPosition();
-        var positionDownRight = position.GetDownRightPosition();
-        
-        if (cells.ExistsCellIn(positionUpLeft)) neighbors.Add(cells.GetCellBy(positionUpLeft));
-        if (cells.ExistsCellIn(positionUpCenter)) neighbors.Add(cells.GetCellBy(positionUpCenter));
-        if (cells.ExistsCellIn(positionUpRight)) neighbors.Add(cells.GetCellBy(positionUpRight));
-        if (cells.ExistsCellIn(positionCenterLeft)) neighbors.Add(cells.GetCellBy(positionCenterLeft));
-        if (cells.ExistsCellIn(positionCenterRight)) neighbors.Add(cells.GetCellBy(positionCenterRight));
-        if (cells.ExistsCellIn(positionDownLeft)) neighbors.Add(cells.GetCellBy(positionDownLeft));
-        if (cells.ExistsCellIn(positionDownCenter)) neighbors.Add(cells.GetCellBy(positionDownCenter));
-        if (cells.ExistsCellIn(positionDownRight)) neighbors.Add(cells.GetCellBy(positionDownRight));
-        return neighbors;
+        var neighborsPositions = position.GetNeighborsPositions();
+        return (from neighborPosition in neighborsPositions where cells.ExistsCellIn(neighborPosition) select cells.GetCellBy(neighborPosition)).ToList();
     }
 
     private Board CreateBoardWithSameSize()
@@ -84,8 +67,8 @@ public class Board
     }
 
     private CellStatus GetNextStatusForCell(Position position) {
-        var neighbors = GetNeighbors(position);
-        var aliveNeighbors = neighbors.Count(n => n.IsAlive());
+        var cellNeighbors = GetCellNeighbors(position);
+        var aliveNeighbors = cellNeighbors.Count(n => n.IsAlive());
         if (IsCellAlive(position))
         {
             return aliveNeighbors switch

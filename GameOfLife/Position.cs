@@ -35,4 +35,19 @@ public class Position : IEquatable<Position>
     {
         return HashCode.Combine(Row, Column);
     }
+
+    public Position[] GetNeighborsPositions()
+    {
+        return new[]
+        {
+            this.GetUpLeftPosition(),
+            this.GetUpCenterPosition(),
+            this.GetUpRightPosition(),
+            this.GetCenterLeftPosition(),
+            this.GetCenterRightPosition(),
+            this.GetDownLeftPosition(),
+            this.GetDownCenterPosition(),
+            this.GetDownRightPosition()
+        };
+    }
 }
