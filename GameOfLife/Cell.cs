@@ -9,8 +9,7 @@ public class Cell {
 
     public bool IsAlive() => status == CellStatus.Alive;
 
-    public void SetToLive() => status = CellStatus.Alive;
-    public void SetToDead() => status = CellStatus.Dead;
+    public void SetTo(CellStatus newStatus) => this.status = newStatus;
 
     public Position Position { get; }
 }

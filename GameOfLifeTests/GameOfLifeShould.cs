@@ -109,12 +109,12 @@ namespace GameOfLifeTests {
             var test3 = new TestBoards(board3, Position.In(2, 2));
             return new[] { test1, test2, test3 };
         }
-        
+
 
         private static Board GetBoardWithAliveCells(int numberOfRows, int numberOfColumns, params Position[] aliveCellPositions) {
             var initialBoard = new Board(numberOfRows, numberOfColumns);
             foreach (var cellPosition in aliveCellPositions) {
-                initialBoard.SetCellToLive(cellPosition);
+                initialBoard.SetStatusCellInPosition(CellStatus.Alive, cellPosition);
             }
             return initialBoard;
         }

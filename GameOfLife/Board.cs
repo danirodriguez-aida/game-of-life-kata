@@ -4,15 +4,39 @@ public class Board
 {
     private readonly int numberOfRows;
     private readonly int numberOfColumns;
-    private readonly List<Cell> cells = new();
+    private readonly CellCollection cells;
 
     public Board(int numberOfRows, int numberOfColumns)
     {
         this.numberOfRows = numberOfRows;
         this.numberOfColumns = numberOfColumns;
+        cells = new CellCollection();
         InitializeBoard();
     }
     
+
+    public Board GetNextBoard()
+    {
+        var auxBoard = CreateBoardWithSameSize();
+        foreach (var cell in cells.GetCells())
+        {
+            var position = cell.Position;
+            var nextStatusForCell = GetNextStatusForCell(position);
+            auxBoard.SetStatusCellInPosition(nextStatusForCell, position);
+        }
+        return auxBoard;
+    }
+
+    public void SetStatusCellInPosition(CellStatus newCellStatus, Position position)
+    {
+        cells.GetCellBy(position).SetTo(newCellStatus);
+    }
+
+    public bool IsCellAlive(Position position)
+    {
+        return cells.GetCellBy(position).IsAlive();
+    }
+
     private void InitializeBoard()
     {
         for (var i = 0; i < numberOfRows; i++)
@@ -24,59 +48,25 @@ public class Board
         }
     }
 
-    public Board GetNextBoard()
-    {
-        var auxBoard = CreateBoardWithSameSize();
-        foreach (var cell in cells)
-        {
-            var position = cell.Position;
-            var statusForCell = GetStatusForCell(position);
-            if (statusForCell == CellStatus.Alive)
-            {
-                auxBoard.SetCellToLive(position);
-            }
-            else
-            {
-                auxBoard.SetCellToDead(position);
-            }
-        }
-        return auxBoard;
-    }
-   
-    public void SetCellToDead(Position position)
-    {
-        GetCellBy(position).SetToDead();
-    }
-
-    public void SetCellToLive(Position position)
-    {
-        GetCellBy(position).SetToLive();
-    }
-
-    public bool IsCellAlive(Position position)
-    {
-        return GetCellBy(position).IsAlive();
-    }
-
     private IEnumerable<Cell> GetNeighbors(Position position)
     {
         var neighbors = new List<Cell>();
         var positionUpLeft = Position.In(position.Row - 1, position.Column - 1);
-        if (IsPosition(positionUpLeft)) neighbors.Add(GetCellBy(positionUpLeft));
         var positionUpCenter = Position.In(position.Row - 1, position.Column);
-        if (IsPosition(positionUpCenter)) neighbors.Add(GetCellBy(positionUpCenter));
         var positionUpRight = Position.In(position.Row - 1, position.Column +1);
-        if (IsPosition(positionUpRight)) neighbors.Add(GetCellBy(positionUpRight));
         var positionCenterLeft = Position.In(position.Row, position.Column -1);
-        if (IsPosition(positionCenterLeft)) neighbors.Add(GetCellBy(positionCenterLeft));
         var positionCenterRight = Position.In(position.Row, position.Column +1);
-        if (IsPosition(positionCenterRight)) neighbors.Add(GetCellBy(positionCenterRight));
         var positionDownLeft = Position.In(position.Row + 1, position.Column - 1);
-        if (IsPosition(positionDownLeft)) neighbors.Add(GetCellBy(positionDownLeft));
         var positionDownCenter = Position.In(position.Row + 1, position.Column);
-        if (IsPosition(positionDownCenter)) neighbors.Add(GetCellBy(positionDownCenter));
         var positionDownRight = Position.In(position.Row + 1, position.Column + 1 );
-        if (IsPosition(positionDownRight)) neighbors.Add(GetCellBy(positionDownRight));
+        if (cells.ExistsCellIn(positionUpLeft)) neighbors.Add(cells.GetCellBy(positionUpLeft));
+        if (cells.ExistsCellIn(positionUpCenter)) neighbors.Add(cells.GetCellBy(positionUpCenter));
+        if (cells.ExistsCellIn(positionUpRight)) neighbors.Add(cells.GetCellBy(positionUpRight));
+        if (cells.ExistsCellIn(positionCenterLeft)) neighbors.Add(cells.GetCellBy(positionCenterLeft));
+        if (cells.ExistsCellIn(positionCenterRight)) neighbors.Add(cells.GetCellBy(positionCenterRight));
+        if (cells.ExistsCellIn(positionDownLeft)) neighbors.Add(cells.GetCellBy(positionDownLeft));
+        if (cells.ExistsCellIn(positionDownCenter)) neighbors.Add(cells.GetCellBy(positionDownCenter));
+        if (cells.ExistsCellIn(positionDownRight)) neighbors.Add(cells.GetCellBy(positionDownRight));
         return neighbors;
     }
 
@@ -85,17 +75,7 @@ public class Board
         return new Board(numberOfRows,numberOfColumns);
     }
 
-    private Cell GetCellBy(Position position)
-    {
-        return cells.Single(c => c.Position.Equals(position));
-    }
-
-    private bool IsPosition(Position position)
-    {
-        return cells.SingleOrDefault(c => c.Position.Equals(position)) != null;
-    }
-
-    private CellStatus GetStatusForCell(Position position) {
+    private CellStatus GetNextStatusForCell(Position position) {
         var neighbors = GetNeighbors(position);
         var aliveNeighbors = neighbors.Count(n => n.IsAlive());
         if (IsCellAlive(position))
