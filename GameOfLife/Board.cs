@@ -43,10 +43,15 @@ public class Board
     {
         for (var i = 0; i < numberOfRows; i++)
         {
-            for (var j = 0; j < numberOfColumns; j++)
-            {
-                cells.Add(new Cell(Position.In(i, j)));
-            }
+            InitializeRow(i);
+        }
+    }
+
+    private void InitializeRow(int i)
+    {
+        for (var j = 0; j < numberOfColumns; j++)
+        {
+            cells.Add(new Cell(Position.In(i, j)));
         }
     }
 
