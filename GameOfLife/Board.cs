@@ -27,11 +27,13 @@ public class Board
         return auxBoard;
     }
 
+    // No se si debería estar en CellCollection
     public void SetStatusCellInPosition(CellStatus newCellStatus, Position position)
     {
         cells.GetCellBy(position).SetTo(newCellStatus);
     }
 
+    // No se si debería estar en CellCollection
     public bool IsCellAlive(Position position)
     {
         return cells.GetCellBy(position).IsAlive();
