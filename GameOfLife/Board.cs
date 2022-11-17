@@ -39,6 +39,12 @@ public class Board
         return cells.GetCellBy(position).IsAlive();
     }
 
+    public IEnumerable<Cell> GetCells()
+    {
+        return cells.GetCells();
+    }
+
+
     private void InitializeBoard()
     {
         for (var i = 0; i < numberOfRows; i++)

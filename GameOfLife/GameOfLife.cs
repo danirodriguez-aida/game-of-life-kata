@@ -15,4 +15,10 @@ public class GameOfLife {
     public bool IsCellAlive(Position position) {
         return board.IsCellAlive(position);
     }
+
+    public Board GetBoard()
+    {
+        return board;
+    }
+
 }
